@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>I'll Build Us a Garden, Mimi</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Lora:ital,wght@0,500;0,600;1,500;1,600&family=Caveat:wght@600;700&family=Quicksand:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream:#FFF6EA;
+    --sky:#FDEFE0;
+    --paper:#FFFBF3;
+    --cocoa:#6B4A3A;
+    --cocoa-soft:#A9836F;
+    --blush:#F6A9A0;
+    --blush-2:#FBD3CE;
+    --leaf:#7FC192;
+    --leaf-deep:#4C9A6A;
+    --willow:#8FB996;
+    --hydrangea:#B7A6E0;
+    --hydrangea-2:#9AC9E0;
+    --frangipani:#FFE3EE;
+    --frangipani-center:#FFC15E;
+    --gold:#E3A857;
+  }
+  *{box-sizing:border-box; -webkit-tap-highlight-color:transparent;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    font-family:'Quicksand',sans-serif;
+    background:linear-gradient(180deg,var(--sky) 0%, var(--cream) 12%, var(--cream) 100%);
+    color:var(--cocoa);
+    overflow-x:hidden;
+  }
+  h1,h2,.display{ font-family:'Baloo 2',sans-serif; margin:0; }
+  .signature{ font-family:'Caveat',cursive; }
+
+  /* ---------- decorative garden top ---------- */
+  .sky-strip{
+    position:relative;
+    width:100%;
+    height:150px;
+    overflow:hidden;
+  }
+  .bird{
+    position:absolute;
+    animation:flyAcross linear infinite;
+  }
+  @keyframes flyAcross{
+    from{transform:translateX(-10vw) translateY(0);}
+    to{transform:translateX(110vw) translateY(-10px);}
+  }
+  .bird svg{animation:flap .5s ease-in-out infinite alternate;}
+  @keyframes flap{
+    from{transform:scaleY(1);}
+    to{transform:scaleY(.75);}
+  }
+
+  /* ---------- hero ---------- */
+  .hero{
+    max-width:640px;
+    margin:0 auto;
+    padding:10px 24px 40px;
+    text-align:center;
+    position:relative;
+  }
+  .hero-eyebrow{
+    font-family:'Baloo 2',sans-serif;
+    font-size:.78rem;
+    letter-spacing:2.5px;
+    text-transform:uppercase;
+    color:var(--leaf-deep);
+    background:#EAF6EC;
+    padding:6px 16px;
+    border-radius:999px;
+    display:inline-block;
+    margin-bottom:18px;
+  }
+  .hero-cats{
+    width:190px;
+    margin:0 auto 10px;
+    animation:bob 3.6s ease-in-out infinite;
+  }
+  @keyframes bob{
+    0%,100%{transform:translateY(0);}
+    50%{transform:translateY(-8px);}
+  }
+  .hero-title{
+    font-size:clamp(1.9rem,6.5vw,3rem);
+    line-height:1.15;
+    color:var(--cocoa);
+    margin-bottom:14px;
+  }
+  .hero-title span{color:var(--blush);}
+  .hero-sub{
+    font-weight:600;
+    color:var(--cocoa-soft);
+    font-size:1.02rem;
+    max-width:420px;
+    margin:0 auto;
+  }
+  .scroll-cue{
+    margin-top:34px;
+    font-family:'Baloo 2',sans-serif;
+    font-size:.82rem;
+    color:var(--cocoa-soft);
+    opacity:.8;
+    animation:hintBounce 2.4s ease-in-out infinite;
+  }
+  @keyframes hintBounce{
+    0%,100%{transform:translateY(0); opacity:.6;}
+    50%{transform:translateY(6px); opacity:1;}
+  }
+
+  /* ---------- garden divider ---------- */
+  .divider{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:10px;
+    margin:8px auto 30px;
+    color:var(--leaf-deep);
+    opacity:.7;
+  }
+  .divider .line{
+    height:1px;
+    width:60px;
+    background:var(--leaf-deep);
+    opacity:.35;
+  }
+
+  /* ---------- stanza sections ---------- */
+  .garden{
+    max-width:760px;
+    margin:0 auto;
+    padding:0 20px 40px;
+    display:flex;
+    flex-direction:column;
+    gap:70px;
+  }
+  .stanza-row{
+    display:flex;
+    align-items:center;
+    gap:34px;
+    opacity:0;
+    transform:translateY(34px);
+    transition:opacity .8s ease, transform .8s ease;
+  }
+  .stanza-row.visible{
+    opacity:1;
+    transform:translateY(0);
+  }
+  .stanza-row.reverse{ flex-direction:row-reverse; }
+  .stanza-art{
+    flex:0 0 auto;
+    width:140px;
+    height:140px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  }
+  .stanza-art svg{ width:100%; height:100%; }
+  .stanza-card{
+    flex:1 1 auto;
+    background:var(--paper);
+    border-radius:24px;
+    padding:26px 30px;
+    box-shadow:0 16px 34px rgba(107,74,58,.1);
+    position:relative;
+  }
+  .stanza-card p{
+    font-family:'Lora',serif;
+    font-style:italic;
+    font-size:1.08rem;
+    line-height:1.7;
+    color:var(--cocoa);
+    margin:0;
+  }
+  .stanza-tag{
+    display:inline-block;
+    font-family:'Baloo 2',sans-serif;
+    font-style:normal;
+    font-size:.72rem;
+    letter-spacing:1.5px;
+    text-transform:uppercase;
+    color:var(--leaf-deep);
+    margin-bottom:10px;
+  }
+
+  /* final stanza styling */
+  .final-row .stanza-card{
+    background:linear-gradient(160deg,#FFF9F0,#FFF1E0);
+    border:1px solid #F3DDBB;
+  }
+  .ring-glow{
+    filter:drop-shadow(0 0 10px rgba(227,168,87,.55));
+  }
+  .sparkle{
+    animation:sparkle 2.2s ease-in-out infinite;
+    transform-origin:center;
+  }
+  @keyframes sparkle{
+    0%,100%{opacity:.3; transform:scale(.7) rotate(0deg);}
+    50%{opacity:1; transform:scale(1.15) rotate(20deg);}
+  }
+
+  /* ---------- signature ---------- */
+  .sign-off{
+    max-width:640px;
+    margin:10px auto 60px;
+    text-align:center;
+    padding:0 24px;
+  }
+  .sign-off .signature{
+    font-size:2.4rem;
+    color:var(--cocoa);
+  }
+  .sign-off .signature span{ color:var(--blush); }
+  .sign-off .heart-row{
+    margin-top:6px;
+    font-size:1.1rem;
+    opacity:.75;
+  }
+
+  /* ---------- music toggle ---------- */
+  #musicToggle{
+    position:fixed;
+    top:16px;
+    right:16px;
+    z-index:100;
+    width:48px;
+    height:48px;
+    border-radius:50%;
+    border:none;
+    background:var(--paper);
+    box-shadow:0 8px 20px rgba(107,74,58,.2);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:1.3rem;
+    cursor:pointer;
+    transition:transform .2s ease;
+  }
+  #musicToggle:active{ transform:scale(.9); }
+  #musicToggle.playing{
+    animation:musicPulse 1.6s ease-in-out infinite;
+  }
+  @keyframes musicPulse{
+    0%,100%{ box-shadow:0 8px 20px rgba(107,74,58,.2); }
+    50%{ box-shadow:0 8px 26px rgba(227,168,87,.45); }
+  }
+  #musicHint{
+    position:fixed;
+    top:70px;
+    right:16px;
+    z-index:100;
+    background:var(--paper);
+    color:var(--cocoa-soft);
+    font-family:'Baloo 2',sans-serif;
+    font-size:.72rem;
+    font-weight:700;
+    padding:6px 12px;
+    border-radius:12px;
+    box-shadow:0 8px 16px rgba(107,74,58,.15);
+    opacity:0;
+    transform:translateY(-6px);
+    transition:opacity .4s ease, transform .4s ease;
+    pointer-events:none;
+    white-space:nowrap;
+  }
+  #musicHint.show{ opacity:1; transform:translateY(0); }
+
+  /* ---------- ground / grass strip ---------- */
+  .grass-strip{
+    position:relative;
+    width:100%;
+    height:120px;
+    background:linear-gradient(180deg,transparent, #DCEFDD 60%);
+    overflow:hidden;
+    margin-top:20px;
+  }
+  .bunny{
+    position:absolute;
+    bottom:8px;
+    animation:hop 1.8s ease-in-out infinite;
+  }
+  @keyframes hop{
+    0%,100%{transform:translateY(0);}
+    35%{transform:translateY(-16px);}
+    55%{transform:translateY(0);}
+  }
+  .flower-dot{
+    position:absolute;
+    bottom:4px;
+    animation:sway2 4s ease-in-out infinite;
+  }
+  @keyframes sway2{
+    0%,100%{transform:rotate(-4deg);}
+    50%{transform:rotate(4deg);}
+  }
+
+  /* ---------- floating petals (subtle ambient) ---------- */
+  .petal{
+    position:fixed;
+    top:-20px;
+    z-index:1;
+    pointer-events:none;
+    animation:petalFall linear forwards;
+    opacity:.85;
+  }
+  @keyframes petalFall{
+    to{ transform:translateY(105vh) translateX(var(--drift,20px)) rotate(360deg); }
+  }
+
+  @media (max-width:640px){
+    .stanza-row, .stanza-row.reverse{
+      flex-direction:column;
+      text-align:center;
+      gap:14px;
+    }
+    .stanza-art{ width:110px; height:110px; }
+    .stanza-card{ padding:22px 22px; }
+  }
+</style>
+</head>
+<body>
+
+<audio id="bgMusic" src="music/The Avatar's Love  Avatar The Last Airbender Soundtrack.mp3" loop preload="auto"></audio>
+<button id="musicToggle" aria-label="Play music" onclick="toggleMusic()">🔇</button>
+<div id="musicHint">tap for music 🎵</div>
+
+<div class="sky-strip" id="skyStrip">
+  <div class="bird" style="top:20px; animation-duration:26s;">
+    <svg width="28" height="18" viewBox="0 0 28 18"><path d="M2 10 Q7 2 14 9 Q21 2 26 10 Q21 8 14 12 Q7 8 2 10Z" fill="#A9836F"/></svg>
+  </div>
+  <div class="bird" style="top:55px; animation-duration:32s; animation-delay:-8s;">
+    <svg width="22" height="14" viewBox="0 0 28 18"><path d="M2 10 Q7 2 14 9 Q21 2 26 10 Q21 8 14 12 Q7 8 2 10Z" fill="#F6A9A0"/></svg>
+  </div>
+  <div class="bird" style="top:90px; animation-duration:22s; animation-delay:-14s;">
+    <svg width="20" height="13" viewBox="0 0 28 18"><path d="M2 10 Q7 2 14 9 Q21 2 26 10 Q21 8 14 12 Q7 8 2 10Z" fill="#8FCB9C"/></svg>
+  </div>
+</div>
+
+<!-- ============ HERO ============ -->
+<section class="hero">
+  <div class="hero-eyebrow">a stanza, for you</div>
+  <svg class="hero-cats" viewBox="0 0 220 150" xmlns="http://www.w3.org/2000/svg">
+    <ellipse cx="130" cy="100" rx="58" ry="42" fill="#A9836F"/>
+    <circle cx="100" cy="55" r="42" fill="#A9836F"/>
+    <path d="M70 30 L60 5 L90 25 Z" fill="#A9836F"/>
+    <path d="M132 30 L145 5 L112 25 Z" fill="#A9836F"/>
+    <path d="M72 22 L67 12 L82 22 Z" fill="#F6A9A0"/>
+    <path d="M128 22 L134 12 L120 22 Z" fill="#F6A9A0"/>
+    <circle cx="82" cy="58" r="4.5" fill="#4A3428"/>
+    <circle cx="118" cy="58" r="4.5" fill="#4A3428"/>
+    <circle cx="70" cy="70" r="7" fill="#F6A9A0" opacity=".8"/>
+    <circle cx="130" cy="70" r="7" fill="#F6A9A0" opacity=".8"/>
+    <path d="M92 68 Q100 74 108 68" stroke="#4A3428" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+    <ellipse cx="72" cy="108" rx="46" ry="34" fill="#FFFDF9" stroke="#EFE6DA" stroke-width="1"/>
+    <circle cx="50" cy="72" r="34" fill="#FFFDF9" stroke="#EFE6DA" stroke-width="1"/>
+    <path d="M28 52 L20 30 L44 48 Z" fill="#FFFDF9"/>
+    <path d="M76 48 L86 30 L64 52 Z" fill="#FFFDF9"/>
+    <path d="M29 44 L25 34 L36 44 Z" fill="#F6A9A0"/>
+    <path d="M73 44 L77 34 L66 44 Z" fill="#F6A9A0"/>
+    <circle cx="40" cy="76" r="4" fill="#4A3428"/>
+    <circle cx="63" cy="76" r="4" fill="#4A3428"/>
+    <circle cx="32" cy="86" r="6" fill="#F6A9A0" opacity=".8"/>
+    <circle cx="70" cy="86" r="6" fill="#F6A9A0" opacity=".8"/>
+    <path d="M46 88 Q51 92 57 88" stroke="#4A3428" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+  </svg>
+  <h1 class="hero-title">I'll Build Us a<br><span>Garden</span>, Mimi</h1>
+  <p class="hero-sub">Something I wrote for you. Take your time with it.</p>
+  <div class="scroll-cue">↓ scroll down ↓</div>
+</section>
+
+<div class="divider"><div class="line"></div>🌿<div class="line"></div></div>
+
+<!-- ============ STANZAS ============ -->
+<section class="garden">
+
+  <div class="stanza-row" data-stanza>
+    <div class="stanza-art">
+      <!-- frangipani -->
+      <svg viewBox="0 0 140 140">
+        <g transform="translate(70,70)">
+          <g id="frangipani">
+            <ellipse rx="15" ry="30" fill="#FFE3EE" transform="rotate(0)"/>
+            <ellipse rx="15" ry="30" fill="#FFE3EE" transform="rotate(72)"/>
+            <ellipse rx="15" ry="30" fill="#FFE3EE" transform="rotate(144)"/>
+            <ellipse rx="15" ry="30" fill="#FFE3EE" transform="rotate(216)"/>
+            <ellipse rx="15" ry="30" fill="#FFE3EE" transform="rotate(288)"/>
+          </g>
+          <circle r="10" fill="#FFC15E"/>
+        </g>
+        <ellipse cx="70" cy="70" rx="15" ry="30" fill="none"/>
+      </svg>
+    </div>
+    <div class="stanza-card">
+      <span class="stanza-tag">the garden begins</span>
+      <p>I'll build us a private garden, Mimi, where every flower knows Michelle Banton's name, where frangipani bloom just to remind you that beautiful things can still remain.</p>
+    </div>
+  </div>
+
+  <div class="stanza-row reverse" data-stanza>
+    <div class="stanza-art">
+      <!-- willow tree -->
+      <svg viewBox="0 0 140 160">
+        <rect x="64" y="90" width="12" height="55" rx="4" fill="#8B6A4F"/>
+        <g id="willow" stroke="#7FA986" stroke-width="3" fill="none" stroke-linecap="round">
+          <path d="M70 90 Q40 100 30 140"/>
+          <path d="M70 90 Q50 105 45 145"/>
+          <path d="M70 90 Q70 110 68 148"/>
+          <path d="M70 90 Q90 105 95 145"/>
+          <path d="M70 90 Q100 100 110 140"/>
+        </g>
+        <ellipse cx="70" cy="70" rx="55" ry="34" fill="#9AD1A4"/>
+        <ellipse cx="40" cy="80" rx="30" ry="20" fill="#8FC79C"/>
+        <ellipse cx="100" cy="80" rx="30" ry="20" fill="#8FC79C"/>
+      </svg>
+    </div>
+    <div class="stanza-card">
+      <span class="stanza-tag">a place to be ourselves</span>
+      <p>I'll plant your favorite willow tree so we have a private place to be ourselves, to expose our true hearts to each other, while the little birds chirp and bunnies hop around.</p>
+    </div>
+  </div>
+
+  <div class="stanza-row" data-stanza>
+    <div class="stanza-art">
+      <!-- hydrangea by a window -->
+      <svg viewBox="0 0 140 140">
+        <rect x="20" y="20" width="100" height="100" rx="10" fill="#FFF9F0" stroke="#E9DAC5" stroke-width="4"/>
+        <line x1="70" y1="20" x2="70" y2="120" stroke="#E9DAC5" stroke-width="4"/>
+        <line x1="20" y1="70" x2="120" y2="70" stroke="#E9DAC5" stroke-width="4"/>
+        <g transform="translate(70,105)">
+          <circle cx="-14" cy="-6" r="9" fill="#B7A6E0"/>
+          <circle cx="0" cy="-14" r="9" fill="#9AC9E0"/>
+          <circle cx="14" cy="-6" r="9" fill="#C7B4E8"/>
+          <circle cx="-7" cy="2" r="9" fill="#A9C9E6"/>
+          <circle cx="8" cy="4" r="9" fill="#B7A6E0"/>
+        </g>
+      </svg>
+    </div>
+    <div class="stanza-card">
+      <span class="stanza-tag">space to breathe</span>
+      <p>I'll grow hydrangeas by your window for the days you must put yourself first, giving you the space you need right now so peace is the first thing you breathe when you leave.</p>
+    </div>
+  </div>
+
+  <div class="stanza-row reverse" data-stanza>
+    <div class="stanza-art">
+      <!-- two small birds, softer -->
+      <svg viewBox="0 0 140 140">
+        <circle cx="70" cy="70" r="55" fill="#FBEFE0"/>
+        <path d="M45 75 Q52 62 64 72 Q76 62 83 75 Q76 71 64 78 Q52 71 45 75Z" fill="#A9836F"/>
+        <path d="M70 50 Q76 40 86 48 Q96 40 100 50 Q96 47 86 53 Q76 47 70 50Z" fill="#F6A9A0"/>
+      </svg>
+    </div>
+    <div class="stanza-card">
+      <span class="stanza-tag">not fully together, not yet</span>
+      <p>And though we can't fully be together right now, while you tend to your own emotions and the timing isn't as perfect as it will one day be, I'll stay.</p>
+    </div>
+  </div>
+
+  <div class="stanza-row" data-stanza>
+    <div class="stanza-art">
+      <!-- two hearts, matched -->
+      <svg viewBox="0 0 140 140">
+        <path d="M55 40 C40 25 15 40 15 60 C15 80 40 95 55 108 C70 95 95 80 95 60 C95 40 70 25 55 40Z" fill="#F6A9A0" transform="translate(0,4) scale(.85)"/>
+        <path d="M85 40 C70 25 45 40 45 60 C45 80 70 95 85 108 C100 95 125 80 125 60 C125 40 100 25 85 40Z" fill="#FF8B6B" opacity=".9" transform="translate(0,4) scale(.85)"/>
+      </svg>
+    </div>
+    <div class="stanza-card">
+      <span class="stanza-tag">a perfect match</span>
+      <p>Because I know that once everything is in place, we are a perfect match for each other.</p>
+    </div>
+  </div>
+
+  <div class="stanza-row reverse" data-stanza>
+    <div class="stanza-art">
+      <!-- soil with small storm/roots -->
+      <svg viewBox="0 0 140 140">
+        <ellipse cx="70" cy="95" rx="55" ry="30" fill="#C9A57C"/>
+        <ellipse cx="70" cy="88" rx="55" ry="22" fill="#B98D5F"/>
+        <g stroke="#8B6A4F" stroke-width="2.5" fill="none" stroke-linecap="round">
+          <path d="M70 88 Q60 105 55 118"/>
+          <path d="M70 88 Q80 105 88 118"/>
+          <path d="M70 88 Q70 108 70 122"/>
+        </g>
+        <circle cx="35" cy="45" r="10" fill="#DDE8F0"/>
+        <circle cx="48" cy="40" r="13" fill="#E7EFF4"/>
+        <circle cx="62" cy="46" r="9" fill="#DDE8F0"/>
+        <path d="M40 55 L36 66 M48 55 L50 68 M56 55 L58 65" stroke="#9AC9E0" stroke-width="2.5" stroke-linecap="round"/>
+      </svg>
+    </div>
+    <div class="stanza-card">
+      <span class="stanza-tag">every version of you</span>
+      <p>I want to learn every version of you: your boundaries, your healing, the beautiful storms beneath the soil.</p>
+    </div>
+  </div>
+
+  <div class="stanza-row final-row" data-stanza>
+    <div class="stanza-art">
+      <!-- pearl ring with sparkles -->
+      <svg viewBox="0 0 140 140">
+        <g class="ring-glow">
+          <ellipse cx="70" cy="95" rx="30" ry="26" fill="none" stroke="#E3A857" stroke-width="7"/>
+          <circle cx="70" cy="55" r="16" fill="#FFF7EA" stroke="#E9DEC8" stroke-width="2"/>
+          <circle cx="64" cy="49" r="4" fill="#ffffff" opacity=".8"/>
+        </g>
+        <g class="sparkle" style="transform:translate(30px,30px);">
+          <path d="M0 -8 L2 -2 L8 0 L2 2 L0 8 L-2 2 L-8 0 L-2 -2 Z" fill="#E3A857"/>
+        </g>
+        <g class="sparkle" style="transform:translate(108px,40px); animation-delay:.8s;">
+          <path d="M0 -6 L1.5 -1.5 L6 0 L1.5 1.5 L0 6 L-1.5 1.5 L-6 0 L-1.5 -1.5 Z" fill="#E3A857"/>
+        </g>
+      </svg>
+    </div>
+    <div class="stanza-card">
+      <span class="stanza-tag">what I'm waiting to give you</span>
+      <p>So if you ever ask me what I wait to give you, I'll tell you. A pearl-shaped engagement ring, as I spend my life making sure you always have somewhere safe to grow.</p>
+    </div>
+  </div>
+
+</section>
+
+<div class="divider"><div class="line"></div>🌸<div class="line"></div></div>
+
+<!-- ============ SIGNATURE ============ -->
+<div class="sign-off">
+  <div class="signature">for Mimi, from <span>Chardeh</span></div>
+  <div class="heart-row">🤎 🌿 🤍</div>
+</div>
+
+<!-- ============ GRASS / BUNNIES ============ -->
+<div class="grass-strip">
+  <div class="bunny" style="left:12%;">
+    <svg width="34" height="34" viewBox="0 0 34 34">
+      <ellipse cx="17" cy="24" rx="10" ry="7" fill="#FFFDF9" stroke="#EFE6DA"/>
+      <circle cx="17" cy="14" r="8" fill="#FFFDF9" stroke="#EFE6DA"/>
+      <ellipse cx="12" cy="4" rx="2.4" ry="7" fill="#FFFDF9" stroke="#EFE6DA" transform="rotate(-10 12 4)"/>
+      <ellipse cx="22" cy="4" rx="2.4" ry="7" fill="#FFFDF9" stroke="#EFE6DA" transform="rotate(10 22 4)"/>
+      <circle cx="14" cy="15" r="1.3" fill="#4A3428"/>
+      <circle cx="20" cy="15" r="1.3" fill="#4A3428"/>
+    </svg>
+  </div>
+  <div class="bunny" style="left:40%; animation-delay:.4s;">
+    <svg width="28" height="28" viewBox="0 0 34 34">
+      <ellipse cx="17" cy="24" rx="10" ry="7" fill="#E9C9A6"/>
+      <circle cx="17" cy="14" r="8" fill="#E9C9A6"/>
+      <ellipse cx="12" cy="4" rx="2.4" ry="7" fill="#E9C9A6" transform="rotate(-10 12 4)"/>
+      <ellipse cx="22" cy="4" rx="2.4" ry="7" fill="#E9C9A6" transform="rotate(10 22 4)"/>
+      <circle cx="14" cy="15" r="1.3" fill="#4A3428"/>
+      <circle cx="20" cy="15" r="1.3" fill="#4A3428"/>
+    </svg>
+  </div>
+  <div class="bunny" style="left:72%; animation-delay:.8s;">
+    <svg width="30" height="30" viewBox="0 0 34 34">
+      <ellipse cx="17" cy="24" rx="10" ry="7" fill="#A9836F"/>
+      <circle cx="17" cy="14" r="8" fill="#A9836F"/>
+      <ellipse cx="12" cy="4" rx="2.4" ry="7" fill="#A9836F" transform="rotate(-10 12 4)"/>
+      <ellipse cx="22" cy="4" rx="2.4" ry="7" fill="#A9836F" transform="rotate(10 22 4)"/>
+      <circle cx="14" cy="15" r="1.3" fill="#2E211A"/>
+      <circle cx="20" cy="15" r="1.3" fill="#2E211A"/>
+    </svg>
+  </div>
+  <div class="flower-dot" style="left:24%; font-size:20px;">🌼</div>
+  <div class="flower-dot" style="left:55%; font-size:22px; animation-delay:1s;">🌸</div>
+  <div class="flower-dot" style="left:85%; font-size:18px; animation-delay:2s;">🌷</div>
+  <div class="flower-dot" style="left:5%; font-size:16px; animation-delay:1.6s;">🌿</div>
+</div>
+
+<script>
+  /* background music: try to autoplay, otherwise wait for a tap. Always loops. */
+  const bgMusic = document.getElementById('bgMusic');
+  const musicToggle = document.getElementById('musicToggle');
+  const musicHint = document.getElementById('musicHint');
+  bgMusic.loop = true;
+
+  function setPlayingUI(isPlaying){
+    musicToggle.textContent = isPlaying ? '🔊' : '🔇';
+    musicToggle.classList.toggle('playing', isPlaying);
+    musicToggle.setAttribute('aria-label', isPlaying ? 'Mute music' : 'Play music');
+  }
+
+  function toggleMusic(){
+    if(bgMusic.paused){
+      bgMusic.play().then(()=>{
+        setPlayingUI(true);
+        musicHint.classList.remove('show');
+      }).catch(()=>{});
+    } else {
+      bgMusic.pause();
+      setPlayingUI(false);
+    }
+  }
+
+  // try autoplay as soon as the page loads
+  bgMusic.play().then(()=>{
+    setPlayingUI(true);
+  }).catch(()=>{
+    // autoplay blocked by the browser, prompt for a tap anywhere
+    setPlayingUI(false);
+    setTimeout(()=> musicHint.classList.add('show'), 600);
+    const startOnFirstTap = ()=>{
+      bgMusic.play().then(()=>{
+        setPlayingUI(true);
+        musicHint.classList.remove('show');
+      }).catch(()=>{});
+      document.removeEventListener('click', startOnFirstTap);
+      document.removeEventListener('touchstart', startOnFirstTap);
+    };
+    document.addEventListener('click', startOnFirstTap, { once:true });
+    document.addEventListener('touchstart', startOnFirstTap, { once:true });
+  });
+
+  /* scroll reveal for stanzas */
+  const stanzas = document.querySelectorAll('[data-stanza]');
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(entry=>{
+      if(entry.isIntersecting){
+        entry.target.classList.add('visible');
+        io.unobserve(entry.target);
+      }
+    });
+  }, { threshold:0.2 });
+  stanzas.forEach(s=>io.observe(s));
+
+  /* gentle ambient petals, occasional */
+  function dropPetal(){
+    const p = document.createElement('div');
+    p.className = 'petal';
+    const emojis = ['🌸','🌿','🌼'];
+    p.textContent = emojis[Math.floor(Math.random()*emojis.length)];
+    p.style.left = Math.random()*100+'vw';
+    p.style.fontSize = (14+Math.random()*10)+'px';
+    p.style.setProperty('--drift', (Math.random()*80-40)+'px');
+    p.style.animationDuration = (9+Math.random()*6)+'s';
+    document.body.appendChild(p);
+    setTimeout(()=>p.remove(), 16000);
+  }
+  setInterval(dropPetal, 3200);
+  dropPetal();
+</script>
+
+</body>
+</html>
